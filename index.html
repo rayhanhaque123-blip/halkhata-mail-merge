@@ -2,7 +2,7 @@
 <html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#145c43"><title>হালখাতা Mail Merge</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--green:#145c43;--gold:#c49a45;--red:#9f3029;--bg:#f3f7f4;--line:#dce7df}*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:'Hind Siliguri','Noto Sans Bengali',sans-serif;color:#20352b}.top{background:linear-gradient(120deg,#104b37,#1b7955);color:white;padding:22px max(16px,calc((100% - 1150px)/2));box-shadow:0 4px 18px #153b2c22}.top h1{margin:0;font-size:27px}.top p{margin:4px 0 0;opacity:.88}.wrap{max-width:1150px;margin:20px auto;padding:0 14px}.card{background:white;border:1px solid var(--line);border-radius:16px;padding:18px;margin:0 0 16px;box-shadow:0 4px 16px #173d2b08}.card h2{font-size:20px;color:var(--green);margin:0 0 12px}.muted,.hint{color:#64776d;font-size:13px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:5px}.field label{font-size:14px;font-weight:600}input,select,textarea{font:inherit;border:1px solid #ccd9d0;border-radius:9px;padding:10px;background:white;min-width:0;width:100%;color:#20352b}textarea{line-height:1.7}.btn{border:0;border-radius:9px;padding:10px 15px;background:var(--green);color:white;font:600 14px inherit;cursor:pointer}.btn.alt{background:#eaf3ed;color:var(--green);border:1px solid #cddfd2}.btn.danger{background:#a83c35}.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px}.status{padding:10px 12px;background:#f1f7f3;border-radius:9px;margin-top:10px;color:#315d45}.hidden{display:none!important}.tablewrap{overflow:auto;max-height:380px;border:1px solid var(--line);border-radius:10px;margin-top:10px}.customer{display:grid;grid-template-columns:30px 1fr auto;gap:8px;align-items:center;padding:10px;border-bottom:1px solid #edf1ee}.customer:last-child{border:0}.customer small{display:block;color:#6c7b72}.pill{display:inline-block;padding:4px 9px;border-radius:30px;background:#edf5ef;color:#275c42;font-size:12px}.editor{min-height:340px;border:2px dashed #9db9a6;border-radius:12px;padding:22px;background:white;outline:none;line-height:1.8;color:#222}.editor:focus{border-color:var(--green)}.toolbar{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.preview{background:#e9eee9;padding:16px;border-radius:12px;overflow:auto}.preview-page{background:white;margin:auto;box-shadow:0 3px 20px #0002;overflow:hidden}.preview .sheet{width:min(100%,672px);height:auto;aspect-ratio:210/297;margin:0 auto 18px;background:white;box-shadow:0 3px 20px #0002;display:grid;grid-template-rows:1fr 1fr;position:relative;overflow:hidden}.preview .slot{height:auto;min-height:0;aspect-ratio:210/148.5;padding:4mm 6mm;overflow:hidden;display:flex}.preview .letter{width:100%;height:100%;overflow:hidden;background:white}.preview .cut-mark{position:absolute;left:0;right:0;top:50%;border-top:1px dashed #888;text-align:center;height:0;line-height:0;color:#555}.preview .cut-mark:after{content:'✂';background:white;padding:0 8px;display:inline-block;transform:translateY(-50%)}.preview .empty{visibility:hidden}.smallnote{font-size:12px;color:#6b7b72}.template-row{display:flex;gap:8px;flex-wrap:wrap;align-items:end}.template-row .field{flex:1;min-width:180px}.foot{text-align:center;color:#718178;padding:12px;font-size:12px}
+:root{--green:#145c43;--gold:#c49a45;--red:#9f3029;--bg:#f3f7f4;--line:#dce7df}*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:'Hind Siliguri','Noto Sans Bengali',sans-serif;color:#20352b}.top{background:linear-gradient(120deg,#104b37,#1b7955);color:white;padding:22px max(16px,calc((100% - 1150px)/2));box-shadow:0 4px 18px #153b2c22}.top h1{margin:0;font-size:27px}.top p{margin:4px 0 0;opacity:.88}.wrap{max-width:1150px;margin:20px auto;padding:0 14px}.card{background:white;border:1px solid var(--line);border-radius:16px;padding:18px;margin:0 0 16px;box-shadow:0 4px 16px #173d2b08}.card h2{font-size:20px;color:var(--green);margin:0 0 12px}.muted,.hint{color:#64776d;font-size:13px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:5px}.field label{font-size:14px;font-weight:600}input,select,textarea{font:inherit;border:1px solid #ccd9d0;border-radius:9px;padding:10px;background:white;min-width:0;width:100%;color:#20352b}textarea{line-height:1.7}.btn{border:0;border-radius:9px;padding:10px 15px;background:var(--green);color:white;font:600 14px inherit;cursor:pointer}.btn.alt{background:#eaf3ed;color:var(--green);border:1px solid #cddfd2}.btn.danger{background:#a83c35}.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px}.status{padding:10px 12px;background:#f1f7f3;border-radius:9px;margin-top:10px;color:#315d45}.hidden{display:none!important}.tablewrap{overflow:auto;max-height:380px;border:1px solid var(--line);border-radius:10px;margin-top:10px}.customer{display:grid;grid-template-columns:30px 1fr auto;gap:8px;align-items:center;padding:10px;border-bottom:1px solid #edf1ee}.customer:last-child{border:0}.customer small{display:block;color:#6c7b72}.pill{display:inline-block;padding:4px 9px;border-radius:30px;background:#edf5ef;color:#275c42;font-size:12px}.editor{min-height:340px;border:2px dashed #9db9a6;border-radius:12px;padding:22px;background:white;outline:none;line-height:1.8;color:#222}.editor:focus{border-color:var(--green)}.editor img{max-width:100%;height:auto;cursor:move}.editor img.logo-top{display:block;max-width:150px;max-height:85px;width:auto;height:auto;object-fit:contain;margin:0 auto 12px;resize:both;overflow:auto}.toolbar{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.preview{background:#e9eee9;padding:16px;border-radius:12px;overflow:auto}.preview-page{background:white;margin:auto;box-shadow:0 3px 20px #0002;overflow:hidden}.preview .sheet{width:min(100%,672px);height:auto;aspect-ratio:210/297;margin:0 auto 18px;background:white;box-shadow:0 3px 20px #0002;display:grid;grid-template-rows:1fr 1fr;position:relative;overflow:hidden}.preview .slot{height:auto;min-height:0;aspect-ratio:210/148.5;padding:4mm 6mm;overflow:hidden;display:flex}.preview .letter{width:100%;height:100%;overflow:hidden;background:white}.preview .letter img.logo-top{display:block;margin:0 auto 5mm;max-width:45mm;max-height:22mm;object-fit:contain}.preview .cut-mark{position:absolute;left:0;right:0;top:50%;border-top:1px dashed #888;text-align:center;height:0;line-height:0;color:#555}.preview .cut-mark:after{content:'✂';background:white;padding:0 8px;display:inline-block;transform:translateY(-50%)}.preview .empty{visibility:hidden}.smallnote{font-size:12px;color:#6b7b72}.template-row{display:flex;gap:8px;flex-wrap:wrap;align-items:end}.template-row .field{flex:1;min-width:180px}.foot{text-align:center;color:#718178;padding:12px;font-size:12px}
 @media(max-width:600px){.top h1{font-size:22px}.card{padding:14px}.customer{grid-template-columns:25px 1fr auto}}
 </style></head><body>
 <header class="top"><h1>✉️ হালখাতা Mail Merge</h1><p>Excel/CSV থেকে গ্রাহকের তথ্য নিয়ে নিজের ডিজাইনে চিঠি তৈরি ও প্রিন্ট করুন</p></header>
@@ -38,9 +38,9 @@
 </div>
 <div class="toolbar">
 <button class="btn alt" id="insertHeading" type="button">শিরোনাম যোগ</button><button class="btn alt" id="insertLine" type="button">লাইন যোগ</button><button class="btn alt" id="insertTable" type="button">টেবিল যোগ</button><button class="btn alt" id="insertBox" type="button">রঙিন বক্স যোগ</button>
-<label class="btn alt" for="inlineImage" style="display:inline-block;cursor:pointer">ছবি/লোগো বসান</label><input id="inlineImage" type="file" accept="image/*" class="hidden">
+<label class="btn alt" for="logoUpload" style="display:inline-block;cursor:pointer">লোগো উপরে বসান</label><input id="logoUpload" type="file" accept="image/*" class="hidden"><label class="btn alt" for="inlineImage" style="display:inline-block;cursor:pointer">কার্সরে ছবি বসান</label><input id="inlineImage" type="file" accept="image/*" class="hidden">
 
-</div><p class="hint">টিপস: ক্যানভাসে কোনো লেখা বা অংশ মাউস দিয়ে নির্বাচন করে রং/ফন্ট/অ্যালাইনমেন্ট দিন। ছবি বসানোর আগে ক্যানভাসে যেখানে চান সেখানে কার্সর রাখুন।</p>
+</div><p class="hint">টিপস: লোগো সব চিঠির একদম উপরে থাকবে। ছবি নির্বাচন করে টেনে সরান বা আকার বদলান; লেখা সরাসরি সম্পাদনা করুন।</p>
 </div>
 <div class="toolbar"><span class="smallnote">Merge Field টেনে এডিটরের মধ্যে ছেড়ে দিন অথবা ক্লিক করুন:</span><button class="btn alt merge" draggable="true" data-v="{নাম}">{নাম}</button><button class="btn alt merge" draggable="true" data-v="{ঠিকানা}">{ঠিকানা}</button><button class="btn alt merge" draggable="true" data-v="{মোবাইল}">{মোবাইল}</button><button class="btn alt merge" draggable="true" data-v="{বকেয়া}">{বকেয়া}</button><button class="btn alt merge" draggable="true" data-v="{তারিখ}">{তারিখ}</button><button class="btn alt merge" draggable="true" data-v="{দোকান}">{দোকান}</button><button class="btn alt merge" draggable="true" data-v="{শিরোনাম}">{শিরোনাম}</button></div>
 <div class="field"><label>ডিজাইন ক্যানভাস — সরাসরি সম্পাদনা করুন</label><div id="editor" class="editor" contenteditable="true" spellcheck="false">
@@ -71,7 +71,7 @@ function letterSheets(list, preview=false){
  let sheets=[];
  for(let i=0;i<list.length;i+=2){
   let pair=list.slice(i,i+2);
-  let slots=pair.map(c=>`<div class="slot">${makeLetter(c).replace(/^<article[^>]*>|<\/article>$/g,'')}</div>`).join('');
+  let slots=pair.map(c=>`<div class="slot">${makeLetter(c)}</div>`).join('');
   if(pair.length===1) slots+='<div class="slot empty"></div>';
   sheets.push(`<div class="sheet">${slots}<div class="cut-mark" aria-hidden="true">✂</div></div>`);
  }
@@ -83,22 +83,33 @@ $('previewBtn').onclick=()=>{
  $('preview').innerHTML=letterSheets(list,true);
 };
 $('printBtn').onclick=()=>{
- let list=selectedCustomers();if(!list.length){alert('আগে অন্তত একজন গ্রাহক নির্বাচন করুন।');return;}
- let w=window.open('','_blank');if(!w){alert('পপ-আপ অনুমতি দিন।');return;}
- let sheets=letterSheets(list);
- w.document.write(`<!doctype html><html lang="bn"><head><meta charset="utf-8"><title>হালখাতা — A4 দুই চিঠি</title><link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
- @page{size:A4 portrait;margin:0}*{box-sizing:border-box}html,body{margin:0;padding:0;font-family:'Hind Siliguri',sans-serif;color:#26392f}
- ${uploadedFontData?`@font-face{font-family:'${uploadedFontFamily}';src:url('${uploadedFontData}') format('${uploadedFontFormat}');font-display:swap}`:''}
- .sheet{width:210mm;height:297mm;display:grid;grid-template-rows:1fr 1fr;page-break-after:always;break-after:page;overflow:hidden;position:relative}
+ let list=selectedCustomers();
+ if(!list.length){alert('আগে অন্তত একজন গ্রাহক নির্বাচন করুন।');return;}
+ const w=window.open('','_blank');
+ if(!w){alert('পপ-আপ অনুমতি দিন।');return;}
+ const sheets=letterSheets(list);
+ const fontFace=uploadedFontData?`@font-face{font-family:'${uploadedFontFamily}';src:url('${uploadedFontData}') format('${uploadedFontFormat}');font-display:swap}`:'';
+ const html=`<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>হালখাতা প্রিন্ট</title><link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
+ @page{size:A4 portrait;margin:0}
+ *{box-sizing:border-box}
+ html,body{margin:0;padding:0;font-family:'Hind Siliguri',sans-serif;color:#26392f}
+ ${fontFace}
+ .sheet{width:210mm;height:297mm;display:grid;grid-template-rows:148.5mm 148.5mm;page-break-after:always;break-after:page;overflow:hidden;position:relative}
  .sheet:last-child{page-break-after:auto;break-after:auto}
  .slot{height:148.5mm;width:210mm;padding:4mm 6mm;display:flex;align-items:stretch;justify-content:center;position:relative;overflow:hidden}
  .letter{width:198mm;height:140.5mm;overflow:hidden;border:0;border-radius:0;position:relative;background:white}
- .letter>div{max-height:100%;overflow:hidden}img{max-width:100%}
- .cut-mark{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:100%;border-top:1px dashed #8b8b8b;text-align:center;height:0;font-size:17px;color:#555;line-height:0}
+ .letter img{max-width:100%;height:auto}.letter img.logo-top{display:block;margin:0 auto 5mm;max-width:45mm;max-height:22mm;object-fit:contain}
+ .cut-mark{position:absolute;left:0;right:0;top:50%;border-top:1px dashed #888;text-align:center;height:0;font-size:16px;color:#555;line-height:0}
  .cut-mark:after{content:'✂';display:inline-block;background:white;padding:0 8px;transform:translateY(-50%)}
- @media print{*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
- </style></head><body>${sheets}<script>window.onload=()=>setTimeout(()=>window.print(),800)<\\/script></body></html>`);
- w.document.close();
+ .print-actions{position:sticky;top:0;background:#eef3ef;padding:10px;text-align:center;z-index:10}
+ .print-actions button{font:600 16px sans-serif;padding:10px 22px;background:#145c43;color:white;border:0;border-radius:6px;cursor:pointer}
+ @media print{.print-actions{display:none}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+ </style></head><body><div class="print-actions"><button onclick="window.print()">প্রিন্ট করুন / PDF সংরক্ষণ</button></div>${sheets}<script>
+ window.addEventListener('load',async()=>{
+  try{if(document.fonts&&document.fonts.ready)await document.fonts.ready;await Promise.all([...document.images].map(im=>im.decode?im.decode().catch(()=>{}):Promise.resolve()));}catch(e){}
+ });
+ <\/script></body></html>`;
+ w.document.open();w.document.write(html);w.document.close();
 };
 
 // Custom visual design tools: format selected content in the editable canvas.
@@ -137,6 +148,18 @@ $('insertHeading').onclick=()=>insertHTML('<h2 style="font-family:Hind Siliguri;
 $('insertLine').onclick=()=>insertHTML('<hr style="border:0;border-top:2px solid #c49a45;margin:12px 0">');
 $('insertTable').onclick=()=>insertHTML('<table style="width:100%;border-collapse:collapse" border="1"><tr><th style="padding:6px">বিবরণ</th><th style="padding:6px">তথ্য</th></tr><tr><td style="padding:6px">{নাম}</td><td style="padding:6px">{বকেয়া}</td></tr></table><p><br></p>');
 $('insertBox').onclick=()=>insertHTML('<div style="padding:12px;margin:8px 0;border:1px solid #c49a45;border-radius:8px;background:#fff7e8;text-align:center">এখানে নিজের লেখা লিখুন</div>');
+
+$('logoUpload').onchange=e=>{
+ let f=e.target.files[0];if(!f)return;
+ let r=new FileReader();
+ r.onload=()=>{
+  const old=$('editor').querySelector('img.logo-top');if(old)old.remove();
+  const img=document.createElement('img');img.src=r.result;img.alt='প্রতিষ্ঠানের লোগো';img.className='logo-top';img.draggable=true;
+  $('editor').insertBefore(img,$('editor').firstChild);
+  $('designStatus').textContent='লোগো সব চিঠির উপরে যুক্ত হয়েছে।';
+ };
+ r.readAsDataURL(f);e.target.value='';
+};
 $('inlineImage').onchange=e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>insertHTML(`<img src="${r.result}" alt="আপলোড করা ছবি" style="max-width:100%;max-height:110px;object-fit:contain;display:inline-block">`);r.readAsDataURL(f);e.target.value='';};
 
 document.querySelectorAll('.merge').forEach(b=>{b.onclick=()=>insertField(b.dataset.v);b.ondragstart=e=>e.dataTransfer.setData('text/plain',b.dataset.v);});$('editor').ondragover=e=>e.preventDefault();$('editor').ondrop=e=>{e.preventDefault();insertField(e.dataTransfer.getData('text/plain'));};function insertField(v){$('editor').focus();document.execCommand('insertText',false,v);}
