@@ -20,9 +20,32 @@
 .editor .shape-line{display:block;width:180px;height:0;min-height:0;padding:0;border:0;border-top:2px solid #c49a45;margin:14px 0}
 .editor .shape-arrow{font-size:26px;background:transparent;border:0;min-height:30px}
 .editor .inserted-textbox{display:block;border:1px dashed #888;padding:10px;min-height:55px;margin:8px 0;resize:both;overflow:auto}
+
+/* Application ribbon navigation */
+.main-ribbon{display:flex;gap:8px;flex-wrap:wrap;background:#e8f0ea;border:1px solid #d2e0d5;border-radius:13px;padding:8px;margin:0 0 14px;position:sticky;top:0;z-index:30}
+.ribbon-tab{border:0;border-radius:9px;padding:12px 22px;background:transparent;color:#244b37;font:700 16px inherit;cursor:pointer}
+.ribbon-tab.active{background:#145c43;color:#fff;box-shadow:0 2px 8px #145c4330}
+.ribbon-panel{display:none}.ribbon-panel.active{display:block}
+#photoshopPanel .photo-workspace{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:14px;align-items:start}
+.photo-stage{min-height:420px;display:flex;align-items:center;justify-content:center;background: repeating-conic-gradient(#e8e8e8 0% 25%,#fff 0% 50%) 50%/22px 22px;border:1px solid #d6dfd8;border-radius:12px;padding:12px;overflow:auto}
+#photoCanvas{max-width:100%;max-height:680px;object-fit:contain;box-shadow:0 2px 16px #0002;background:transparent}
+.photo-panel{background:#f7faf8;border:1px solid #dce7df;border-radius:10px;padding:12px;margin-bottom:10px}
+.photo-panel h3{font-size:15px;color:#145c43;margin:0 0 10px}
+.photo-control{display:grid;grid-template-columns:1fr 95px;gap:8px;align-items:center;margin:8px 0;font-size:13px}
+.photo-control input[type=range]{padding:0}
+.photo-control input[type=number]{padding:6px}
+.photo-actions{display:flex;gap:7px;flex-wrap:wrap}
+.photo-hint{font-size:12px;color:#68786f;line-height:1.55}
+@media(max-width:800px){#photoshopPanel .photo-workspace{grid-template-columns:1fr}.main-ribbon{position:static}}
+
 </style></head><body>
 <header class="top"><h1>✉️ হালখাতা Mail Merge</h1><p>Excel/CSV থেকে গ্রাহকের তথ্য নিয়ে নিজের ডিজাইনে চিঠি তৈরি ও প্রিন্ট করুন</p></header>
 <main class="wrap">
+<nav class="main-ribbon" role="tablist" aria-label="প্রধান রিবন">
+<button class="ribbon-tab active" type="button" data-ribbon="mailMergePanel">✉ Mail Merge</button>
+<button class="ribbon-tab" type="button" data-ribbon="photoshopPanel">🖼 Photoshop</button>
+</nav>
+<div id="mailMergePanel" class="ribbon-panel active">
 <section class="card"><h2>১. Excel / CSV ফাইল আপলোড</h2><p class="muted">Excel (.xlsx/.xls) বা CSV ফাইল থেকে গ্রাহকের নাম, বকেয়া, ঠিকানা ও মোবাইল পড়ুন। CSV অফলাইনেও চলে; Excel পড়তে প্রথমবার ইন্টারনেট লাগতে পারে।</p><div class="grid"><div class="field"><label>ফাইল নির্বাচন</label><input id="file" type="file" accept=".xlsx,.xls,.csv"></div><div class="field"><label>নমুনা ফাইল</label><button class="btn alt" id="sample">নমুনা CSV ডাউনলোড</button></div></div><div id="status" class="status">এখনো কোনো ফাইল নির্বাচন করা হয়নি।</div></section>
 <section class="card hidden" id="mapping"><h2>২. Excel কলাম মিলিয়ে নিন</h2><div class="grid"><div class="field"><label>গ্রাহকের নাম</label><select id="nameCol"></select></div><div class="field"><label>বকেয়া টাকা</label><select id="dueCol"></select></div><div class="field"><label>ঠিকানা</label><select id="addressCol"></select></div><div class="field"><label>মোবাইল</label><select id="phoneCol"></select></div><div class="field"><label>আগের জমা (ঐচ্ছিক)</label><select id="paidCol"><option value="-1">নেই</option></select></div><div class="field"><label>মোট পাওনা (ঐচ্ছিক)</label><select id="totalCol"><option value="-1">হিসাব করে নিন</option></select></div></div><div class="actions"><button class="btn" id="makeList">গ্রাহক তালিকা তৈরি</button></div></section>
 <section class="card hidden" id="customers"><h2>৩. গ্রাহক নির্বাচন</h2><div class="grid"><div class="field"><label>নাম/ঠিকানা দিয়ে খুঁজুন</label><input id="search" placeholder="নাম লিখুন"></div><div class="field"><label>নির্বাচন</label><div class="actions" style="margin:0"><button class="btn alt" id="all">সব নির্বাচন</button><button class="btn alt" id="none">নির্বাচন বাতিল</button></div></div></div><p class="hint" id="count"></p><div id="customerList" class="tablewrap"></div></section>
@@ -89,6 +112,56 @@
 
 <div class="template-row" style="margin-top:14px"><div class="field"><label>ডিজাইনের নাম</label><input id="templateName" placeholder="যেমন: লাল-সোনালি হালখাতা"></div><div class="field"><label>সংরক্ষিত ডিজাইন</label><select id="templates"><option value="">ডিজাইন নির্বাচন</option></select></div></div><div class="actions"><button class="btn" id="saveTemplate">ডিজাইন সংরক্ষণ</button><button class="btn alt" id="loadTemplate">ডিজাইন খুলুন</button><button class="btn alt" id="deleteTemplate">ডিজাইন মুছুন</button></div><p class="hint" id="designStatus">খালি ক্যানভাসে নিজের ডিজাইন তৈরি করুন। আপলোড করা ফন্টসহ ডিজাইন এই ব্রাউজারে সংরক্ষিত হবে।</p></section>
 <section class="card"><h2>৬. Preview ও প্রিন্ট</h2><div class="actions"><button class="btn alt" id="previewBtn">নির্বাচিত চিঠির Preview</button><button class="btn" id="printBtn">নির্বাচিত চিঠি প্রিন্ট / PDF</button></div><div id="preview" class="preview" style="margin-top:12px">Preview দেখতে বোতাম চাপুন।</div></section>
+</div>
+<section id="photoshopPanel" class="ribbon-panel">
+<div class="card">
+<h2>Photoshop — ছবি সম্পাদনা</h2>
+<p class="muted">ছবি আপলোড করে ব্যাকগ্রাউন্ড, রং, আলো, সাইজ, ক্রপ ও অন্যান্য পরিবর্তন করুন। অধিকাংশ এডিটিং আপনার ব্রাউজারেই হবে।</p>
+<div class="grid" style="margin-bottom:12px">
+<div class="field"><label>ছবি খুলুন</label><input id="photoFile" type="file" accept="image/*"></div>
+<div class="field"><label>ব্যাকগ্রাউন্ড ছবি</label><input id="photoBgFile" type="file" accept="image/*"></div>
+<div class="field"><label>এক্সপোর্ট ফরম্যাট</label><select id="photoFormat"><option value="image/png">PNG (স্বচ্ছ ব্যাকগ্রাউন্ড)</option><option value="image/jpeg">JPEG</option><option value="image/webp">WebP</option></select></div>
+</div>
+<div class="photo-workspace">
+<div>
+<div class="photo-stage"><canvas id="photoCanvas" width="900" height="600"></canvas></div>
+<div class="photo-actions" style="margin-top:10px">
+<button class="btn alt" id="photoReset" type="button">রিসেট</button><button class="btn alt" id="photoRotateL" type="button">↶ ৯০°</button><button class="btn alt" id="photoRotateR" type="button">↷ ৯০°</button><button class="btn alt" id="photoFlipH" type="button">↔ উল্টান</button><button class="btn alt" id="photoFlipV" type="button">↕ উল্টান</button><button class="btn" id="photoDownload" type="button">এডিট করা ছবি ডাউনলোড</button>
+</div>
+<p class="photo-hint" id="photoStatus">প্রথমে একটি ছবি আপলোড করুন।</p>
+</div>
+<div>
+<div class="photo-panel"><h3>AI Background Remover</h3>
+<button class="btn" id="aiRemoveBg" type="button">✨ AI দিয়ে ব্যাকগ্রাউন্ড রিমুভ</button>
+<p class="photo-hint">প্রথমবার ব্যবহারে AI মডেল ইন্টারনেট থেকে লোড হবে (বড় ফাইল ডাউনলোড হতে পারে)। ফলাফল স্বচ্ছ PNG হিসেবে তৈরি হবে।</p>
+</div>
+<div class="photo-panel"><h3>Background পরিবর্তন</h3>
+<div class="photo-control"><label for="photoBgColor">ব্যাকগ্রাউন্ডের রং</label><input id="photoBgColor" type="color" value="#ffffff"></div>
+<div class="photo-actions"><button class="btn alt" id="photoBgWhite" type="button">সাদা</button><button class="btn alt" id="photoBgBlack" type="button">কালো</button><button class="btn alt" id="photoBgNone" type="button">স্বচ্ছ</button></div>
+</div>
+<div class="photo-panel"><h3>ছবির সাইজ ও ক্রপ</h3>
+<div class="photo-control"><label for="photoWidth">প্রস্থ (px)</label><input id="photoWidth" type="number" min="1" max="8000" value="900"></div>
+<div class="photo-control"><label for="photoHeight">উচ্চতা (px)</label><input id="photoHeight" type="number" min="1" max="8000" value="600"></div>
+<label class="smallnote"><input id="photoKeepRatio" type="checkbox" checked style="width:auto"> অনুপাত ঠিক রাখুন</label>
+<div class="photo-control"><label for="cropLeft">Crop বাম (%)</label><input id="cropLeft" type="number" min="0" max="90" value="0"></div>
+<div class="photo-control"><label for="cropTop">Crop উপর (%)</label><input id="cropTop" type="number" min="0" max="90" value="0"></div>
+<div class="photo-control"><label for="cropWidth">Crop প্রস্থ (%)</label><input id="cropWidth" type="number" min="10" max="100" value="100"></div>
+<div class="photo-control"><label for="cropHeight">Crop উচ্চতা (%)</label><input id="cropHeight" type="number" min="10" max="100" value="100"></div>
+</div>
+<div class="photo-panel"><h3>Color Grading ও আলো</h3>
+<div class="photo-control"><label for="photoBrightness">Brightness</label><input id="photoBrightness" type="range" min="0" max="200" value="100"></div>
+<div class="photo-control"><label for="photoContrast">Contrast</label><input id="photoContrast" type="range" min="0" max="200" value="100"></div>
+<div class="photo-control"><label for="photoSaturation">Saturation</label><input id="photoSaturation" type="range" min="0" max="250" value="100"></div>
+<div class="photo-control"><label for="photoHue">Hue</label><input id="photoHue" type="range" min="0" max="360" value="0"></div>
+<div class="photo-control"><label for="photoBlur">Blur</label><input id="photoBlur" type="range" min="0" max="10" value="0"></div>
+<div class="photo-control"><label for="photoSepia">Sepia</label><input id="photoSepia" type="range" min="0" max="100" value="0"></div>
+<div class="photo-control"><label for="photoGray">Grayscale</label><input id="photoGray" type="range" min="0" max="100" value="0"></div>
+<div class="photo-actions"><button class="btn alt" id="photoAutoTone" type="button">Auto Tone</button><button class="btn alt" id="photoResetColor" type="button">রং রিসেট</button></div>
+</div>
+</div>
+</div>
+</div>
+</section>
 <div class="foot">হালখাতা Mail Merge • আপনার তথ্য এই ব্রাউজারেই প্রক্রিয়াকরণ হয়</div>
 </main>
 <script>
@@ -142,7 +215,25 @@ $('printBtn').onclick=()=>{
  .print-actions{position:sticky;top:0;background:#eef3ef;padding:10px;text-align:center;z-index:10}
  .print-actions button{font:600 16px sans-serif;padding:10px 22px;background:#145c43;color:white;border:0;border-radius:6px;cursor:pointer}
  @media print{@page{margin:0}.print-actions{display:none}html,body{margin:0!important;padding:0!important}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
- </style></head><body><div class="print-actions"><button onclick="window.print()">প্রিন্ট করুন / PDF সংরক্ষণ</button></div>${sheets}<script>
+ 
+/* Application ribbon navigation */
+.main-ribbon{display:flex;gap:8px;flex-wrap:wrap;background:#e8f0ea;border:1px solid #d2e0d5;border-radius:13px;padding:8px;margin:0 0 14px;position:sticky;top:0;z-index:30}
+.ribbon-tab{border:0;border-radius:9px;padding:12px 22px;background:transparent;color:#244b37;font:700 16px inherit;cursor:pointer}
+.ribbon-tab.active{background:#145c43;color:#fff;box-shadow:0 2px 8px #145c4330}
+.ribbon-panel{display:none}.ribbon-panel.active{display:block}
+#photoshopPanel .photo-workspace{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:14px;align-items:start}
+.photo-stage{min-height:420px;display:flex;align-items:center;justify-content:center;background: repeating-conic-gradient(#e8e8e8 0% 25%,#fff 0% 50%) 50%/22px 22px;border:1px solid #d6dfd8;border-radius:12px;padding:12px;overflow:auto}
+#photoCanvas{max-width:100%;max-height:680px;object-fit:contain;box-shadow:0 2px 16px #0002;background:transparent}
+.photo-panel{background:#f7faf8;border:1px solid #dce7df;border-radius:10px;padding:12px;margin-bottom:10px}
+.photo-panel h3{font-size:15px;color:#145c43;margin:0 0 10px}
+.photo-control{display:grid;grid-template-columns:1fr 95px;gap:8px;align-items:center;margin:8px 0;font-size:13px}
+.photo-control input[type=range]{padding:0}
+.photo-control input[type=number]{padding:6px}
+.photo-actions{display:flex;gap:7px;flex-wrap:wrap}
+.photo-hint{font-size:12px;color:#68786f;line-height:1.55}
+@media(max-width:800px){#photoshopPanel .photo-workspace{grid-template-columns:1fr}.main-ribbon{position:static}}
+
+</style></head><body><div class="print-actions"><button onclick="window.print()">প্রিন্ট করুন / PDF সংরক্ষণ</button></div>${sheets}<script>
  window.addEventListener('load',async()=>{
   try{if(document.fonts&&document.fonts.ready)await document.fonts.ready;await Promise.all([...document.images].map(im=>im.decode?im.decode().catch(()=>{}):Promise.resolve()));}catch(e){}
  });
@@ -314,4 +405,56 @@ function getTemplates(){try{const v=JSON.parse(localStorage.getItem('halkhata_te
 $('saveTemplate').onclick=()=>{let a=getTemplates(),d=templateData();if(!d.name.trim()){alert('ডিজাইনের নাম দিন।');return;}let i=a.findIndex(x=>x.name===d.name);if(i>=0)a[i]=d;else a.push(d);try{localStorage.setItem('halkhata_templates_v1',JSON.stringify(a));refreshTemplates();$('designStatus').textContent='ডিজাইন সংরক্ষিত হয়েছে।';}catch(e){alert('স্টোরেজ পূর্ণ। কিছু পুরোনো ডিজাইন মুছে আবার চেষ্টা করুন।');}};
 $('loadTemplate').onclick=()=>{if($('templates').value===''){alert('আগে একটি সংরক্ষিত ডিজাইন নির্বাচন করুন।');return;}let d=getTemplates()[Number($('templates').value)];if(!d)return;for(let k of ['mt','mb','ml','mr','paperSize','customW','customH','orientation','perPage','pageBorder','shop','shopInfo','title','body','deadline','printScope','letterLanguage']){$(k).value=d[k]??$(k).value;}$('editor').innerHTML=d.editor;if(d.editorStyle)$('editor').setAttribute('style',d.editorStyle);else $('editor').removeAttribute('style');if(d.uploadedFontData&&d.uploadedFontFamily)applyUploadedFont(d.uploadedFontData,d.uploadedFontFamily,d.uploadedFontFormat||'truetype');$('templateName').value=d.name;$('designStatus').textContent='ডিজাইন খোলা হয়েছে।';};
 $('deleteTemplate').onclick=()=>{if($('templates').value===''){alert('আগে একটি সংরক্ষিত ডিজাইন নির্বাচন করুন।');return;}let i=Number($('templates').value);let a=getTemplates();if(!Number.isInteger(i)||i<0||i>=a.length)return;if(!confirm(`“${a[i].name}” ডিজাইনটি মুছে ফেলবেন?`))return;a.splice(i,1);localStorage.setItem('halkhata_templates_v1',JSON.stringify(a));refreshTemplates();$('designStatus').textContent='নির্বাচিত ডিজাইন মুছে ফেলা হয়েছে।';};refreshTemplates();
+
+// Main ribbon switching: Mail Merge and Photoshop are separate workspaces.
+document.querySelectorAll('.ribbon-tab').forEach(btn=>btn.addEventListener('click',()=>{
+ document.querySelectorAll('.ribbon-tab').forEach(b=>b.classList.toggle('active',b===btn));
+ document.querySelectorAll('.ribbon-panel').forEach(p=>p.classList.toggle('active',p.id===btn.dataset.ribbon));
+}));
+
+// Photoshop-style browser image editor.
+const photoCanvas=$('photoCanvas'), photoCtx=photoCanvas.getContext('2d');
+let photoOriginal=null, photoOriginalFile=null, photoBgImage=null, photoRotation=0, photoFlipH=1, photoFlipV=1, photoRemovedBlob=null, photoBgMode='color';
+function photoSay(t){$('photoStatus').textContent=t;}
+function photoLoadImage(file,cb){const url=URL.createObjectURL(file),im=new Image();im.onload=()=>{URL.revokeObjectURL(url);cb(im);};im.onerror=()=>{URL.revokeObjectURL(url);photoSay('ছবিটি খোলা যায়নি। অন্য ফাইল চেষ্টা করুন।');};im.src=url;}
+function photoRender(){
+ if(!photoOriginal){photoCtx.clearRect(0,0,photoCanvas.width,photoCanvas.height);return;}
+ const baseW=photoOriginal.naturalWidth||photoOriginal.width,baseH=photoOriginal.naturalHeight||photoOriginal.height;
+ const l=Math.max(0,Math.min(90,Number($('cropLeft').value)||0))/100,t=Math.max(0,Math.min(90,Number($('cropTop').value)||0))/100;
+ const cw=Math.max(10,Math.min(100,Number($('cropWidth').value)||100))/100,ch=Math.max(10,Math.min(100,Number($('cropHeight').value)||100))/100;
+ const sx=baseW*l,sy=baseH*t,sw=baseW*Math.min(cw,1-l),sh=baseH*Math.min(ch,1-t);
+ let outW=Math.max(1,Math.min(8000,Number($('photoWidth').value)||sw)),outH=Math.max(1,Math.min(8000,Number($('photoHeight').value)||sh));
+ if(photoRotation%180!==0){[outW,outH]=[outH,outW];}
+ photoCanvas.width=outW;photoCanvas.height=outH;
+ photoCtx.clearRect(0,0,outW,outH);
+ if(photoBgMode==='color') {photoCtx.fillStyle=$('photoBgColor').value;photoCtx.fillRect(0,0,outW,outH);}
+ if(photoBgMode==='image'&&photoBgImage)photoCtx.drawImage(photoBgImage,0,0,outW,outH);
+ const brightness=+$('photoBrightness').value,contrast=+$('photoContrast').value,sat=+$('photoSaturation').value,hue=+$('photoHue').value,blur=+$('photoBlur').value,sepia=+$('photoSepia').value,gray=+$('photoGray').value;
+ photoCtx.save();photoCtx.translate(outW/2,outH/2);photoCtx.rotate(photoRotation*Math.PI/180);photoCtx.scale(photoFlipH,photoFlipV);
+ photoCtx.filter=`brightness(${brightness}%) contrast(${contrast}%) saturate(${sat}%) hue-rotate(${hue}deg) blur(${blur}px) sepia(${sepia}%) grayscale(${gray}%)`;
+ photoCtx.drawImage(photoOriginal,sx,sy,sw,sh,-(photoRotation%180?outH:outW)/2,-(photoRotation%180?outW:outH)/2,photoRotation%180?outH:outW,photoRotation%180?outW:outH);
+ photoCtx.restore();
+}
+$('photoFile').onchange=e=>{const f=e.target.files[0];if(!f)return;photoOriginalFile=f;photoRemovedBlob=null;photoLoadImage(f,im=>{photoOriginal=im;$('photoWidth').value=im.naturalWidth;$('photoHeight').value=im.naturalHeight;photoRotation=0;photoFlipH=photoFlipV=1;photoRender();photoSay(`ছবি লোড হয়েছে: ${im.naturalWidth} × ${im.naturalHeight} px`);});};
+$('photoBgFile').onchange=e=>{const f=e.target.files[0];if(!f)return;photoLoadImage(f,im=>{photoBgImage=im;photoBgMode='image';photoRender();photoSay('নতুন ব্যাকগ্রাউন্ড প্রয়োগ করা হয়েছে।');});};
+['photoWidth','photoHeight'].forEach(id=>$(id).addEventListener('change',()=>{if($('photoKeepRatio').checked&&photoOriginal){const ratio=photoOriginal.naturalWidth/photoOriginal.naturalHeight;if(id==='photoWidth')$('photoHeight').value=Math.round(+$('photoWidth').value/ratio);else $('photoWidth').value=Math.round(+$('photoHeight').value*ratio);}photoRender();}));
+['cropLeft','cropTop','cropWidth','cropHeight','photoBrightness','photoContrast','photoSaturation','photoHue','photoBlur','photoSepia','photoGray','photoBgColor'].forEach(id=>$(id).addEventListener('input',()=>{if(id==='photoBgColor')photoBgMode='color';photoRender();}));
+$('photoBgWhite').onclick=()=>{$('photoBgColor').value='#ffffff';photoBgMode='color';photoRender();};$('photoBgBlack').onclick=()=>{$('photoBgColor').value='#000000';photoBgMode='color';photoRender();};$('photoBgNone').onclick=()=>{photoBgMode='none';photoRender();};
+$('photoRotateL').onclick=()=>{photoRotation=(photoRotation+270)%360;photoRender();};$('photoRotateR').onclick=()=>{photoRotation=(photoRotation+90)%360;photoRender();};$('photoFlipH').onclick=()=>{photoFlipH*=-1;photoRender();};$('photoFlipV').onclick=()=>{photoFlipV*=-1;photoRender();};
+$('photoResetColor').onclick=()=>{for(const [id,v] of Object.entries({photoBrightness:100,photoContrast:100,photoSaturation:100,photoHue:0,photoBlur:0,photoSepia:0,photoGray:0}))$(id).value=v;photoRender();};
+$('photoAutoTone').onclick=()=>{$('photoBrightness').value=105;$('photoContrast').value=112;$('photoSaturation').value=108;photoRender();};
+$('photoReset').onclick=()=>{if(!photoOriginal)return;photoRotation=0;photoFlipH=photoFlipV=1;$('cropLeft').value=0;$('cropTop').value=0;$('cropWidth').value=$('cropHeight').value=100;$('photoWidth').value=photoOriginal.naturalWidth;$('photoHeight').value=photoOriginal.naturalHeight;$('photoBgColor').value='#ffffff';photoBgMode='none';$('photoResetColor').click();photoSay('মূল ছবিতে রিসেট করা হয়েছে।');};
+$('photoDownload').onclick=()=>{if(!photoOriginal)return alert('আগে একটি ছবি খুলুন।');const type=$('photoFormat').value;photoCanvas.toBlob(blob=>{if(!blob)return alert('ছবি এক্সপোর্ট করা যায়নি।');const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='edited-photo.'+(type==='image/jpeg'?'jpg':type==='image/webp'?'webp':'png');a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1500);},type,.94);};
+$('aiRemoveBg').onclick=async()=>{
+ if(!photoOriginalFile)return alert('প্রথমে একটি ছবি আপলোড করুন।');
+ const btn=$('aiRemoveBg');btn.disabled=true;btn.textContent='AI মডেল লোড হচ্ছে…';photoSay('AI ব্যাকগ্রাউন্ড রিমুভের মডেল লোড হচ্ছে। ইন্টারনেট সংযোগ চালু রাখুন।');
+ try{
+  const mod=await import('https://esm.sh/@imgly/background-removal@1.5.5');
+  btn.textContent='AI দিয়ে ব্যাকগ্রাউন্ড রিমুভ হচ্ছে…';
+  const blob=await mod.removeBackground(photoOriginalFile,{model:'small',output:{format:'image/png'}});
+  photoRemovedBlob=blob;photoLoadImage(blob,im=>{photoOriginal=im;$('photoWidth').value=im.naturalWidth;$('photoHeight').value=im.naturalHeight;photoBgMode='none';photoRender();photoSay('AI দিয়ে ব্যাকগ্রাউন্ড রিমুভ সম্পন্ন হয়েছে। এখন Background panel থেকে নতুন ব্যাকগ্রাউন্ড দিন।');});
+ }catch(err){console.error(err);photoSay('AI ব্যাকগ্রাউন্ড রিমুভ করা যায়নি। ইন্টারনেট/ব্রাউজার সাপোর্ট পরীক্ষা করে আবার চেষ্টা করুন।');alert('AI Background Remover লোড বা চালাতে সমস্যা হয়েছে। প্রথমবার মডেল ডাউনলোডের জন্য স্থিতিশীল ইন্টারনেট দরকার।');}
+ finally{btn.disabled=false;btn.textContent='✨ AI দিয়ে ব্যাকগ্রাউন্ড রিমুভ';}
+};
+
 </script></body></html>
