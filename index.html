@@ -4,6 +4,22 @@
 <style>
 :root{--green:#145c43;--gold:#c49a45;--red:#9f3029;--bg:#f3f7f4;--line:#dce7df}*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:'Hind Siliguri','Noto Sans Bengali',sans-serif;color:#20352b}.top{background:linear-gradient(120deg,#104b37,#1b7955);color:white;padding:22px max(16px,calc((100% - 1150px)/2));box-shadow:0 4px 18px #153b2c22}.top h1{margin:0;font-size:27px}.top p{margin:4px 0 0;opacity:.88}.wrap{max-width:1150px;margin:20px auto;padding:0 14px}.card{background:white;border:1px solid var(--line);border-radius:16px;padding:18px;margin:0 0 16px;box-shadow:0 4px 16px #173d2b08}.card h2{font-size:20px;color:var(--green);margin:0 0 12px}.muted,.hint{color:#64776d;font-size:13px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:5px}.field label{font-size:14px;font-weight:600}input,select,textarea{font:inherit;border:1px solid #ccd9d0;border-radius:9px;padding:10px;background:white;min-width:0;width:100%;color:#20352b}textarea{line-height:1.7}.btn{border:0;border-radius:9px;padding:10px 15px;background:var(--green);color:white;font:600 14px inherit;cursor:pointer}.btn.alt{background:#eaf3ed;color:var(--green);border:1px solid #cddfd2}.btn.danger{background:#a83c35}.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px}.status{padding:10px 12px;background:#f1f7f3;border-radius:9px;margin-top:10px;color:#315d45}.hidden{display:none!important}.tablewrap{overflow:auto;max-height:380px;border:1px solid var(--line);border-radius:10px;margin-top:10px}.customer{display:grid;grid-template-columns:30px 1fr auto;gap:8px;align-items:center;padding:10px;border-bottom:1px solid #edf1ee}.customer:last-child{border:0}.customer small{display:block;color:#6c7b72}.pill{display:inline-block;padding:4px 9px;border-radius:30px;background:#edf5ef;color:#275c42;font-size:12px}.editor{min-height:340px;border:2px dashed #9db9a6;border-radius:12px;padding:22px;background:white;outline:none;line-height:1.8;color:#222;position:relative;overflow:hidden}.editor:focus{border-color:var(--green)}.editor img{max-width:100%;height:auto;cursor:move}.editor table{width:100%;border-collapse:collapse;margin:12px 0;table-layout:auto}.editor table td,.editor table th{border:1px solid #333;padding:8px;min-width:45px;min-height:30px;text-align:left;vertical-align:middle}.editor table th{background:#eaf3ed;font-weight:700}.editor table td:focus,.editor table th:focus{outline:2px solid #145c43}.editor img.logo-top{position:absolute;left:50%;top:0;transform:translateX(-50%);display:block;max-width:150px;max-height:85px;width:auto;height:auto;object-fit:contain;cursor:move;touch-action:none;user-select:none;z-index:5}.toolbar{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.preview{background:#e9eee9;padding:16px;border-radius:12px;overflow:auto}.preview-page{background:white;margin:auto;box-shadow:0 3px 20px #0002;overflow:hidden}.preview .sheet{width:min(100%,672px);height:auto;aspect-ratio:210/297;margin:0 auto 18px;background:white;box-shadow:0 3px 20px #0002;display:grid;grid-template-rows:1fr 1fr;position:relative;overflow:hidden}.preview .slot{height:auto;min-height:0;aspect-ratio:210/148.5;padding:4mm 6mm;overflow:hidden;display:flex}.preview .letter{width:100%;height:100%;overflow:hidden;background:white;position:relative}.preview .letter img.logo-top{position:absolute;left:50%;top:0;transform:translateX(-50%);display:block;max-width:45mm;max-height:22mm;object-fit:contain}.preview .cut-mark{position:absolute;left:0;right:0;top:50%;border-top:1px dashed #888;text-align:center;height:0;line-height:0;color:#555}.preview .cut-mark:after{content:'✂';background:white;padding:0 8px;display:inline-block;transform:translateY(-50%)}.preview .empty{visibility:hidden}.smallnote{font-size:12px;color:#6b7b72}.template-row{display:flex;gap:8px;flex-wrap:wrap;align-items:end}.template-row .field{flex:1;min-width:180px}.foot{text-align:center;color:#718178;padding:12px;font-size:12px}
 @media(max-width:600px){.top h1{font-size:22px}.card{padding:14px}.customer{grid-template-columns:25px 1fr auto}}
+ 
+.word-tabs{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid #d7e3da;padding:8px 0;margin:8px 0}
+.tab-btn{border-radius:8px 8px 0 0}
+.tab-btn.active{background:#145c43;color:#fff}
+.word-panel{display:none;padding:8px 0}
+.word-panel.active{display:block}
+.word-group-title{font-weight:700;color:#145c43;border-left:3px solid #c49a45;padding-left:8px;margin:8px 0}
+.shape-tools{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:8px;background:#f3f8f4;border-radius:8px}
+.shape-tools label{font-size:13px}
+.editor .inserted-shape{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;min-width:70px;min-height:42px;margin:6px;padding:8px;border:2px solid #c49a45;background:#fff2cc;cursor:pointer;resize:both;overflow:auto}
+.editor .shape-circle{width:70px;height:70px;border-radius:50%;min-width:70px;min-height:70px}
+.editor .shape-round{border-radius:14px}
+.editor .shape-diamond{transform:rotate(45deg);width:60px;height:60px;min-width:60px;min-height:60px}
+.editor .shape-line{display:block;width:180px;height:0;min-height:0;padding:0;border:0;border-top:2px solid #c49a45;margin:14px 0}
+.editor .shape-arrow{font-size:26px;background:transparent;border:0;min-height:30px}
+.editor .inserted-textbox{display:block;border:1px dashed #888;padding:10px;min-height:55px;margin:8px 0;resize:both;overflow:auto}
 </style></head><body>
 <header class="top"><h1>✉️ হালখাতা Mail Merge</h1><p>Excel/CSV থেকে গ্রাহকের তথ্য নিয়ে নিজের ডিজাইনে চিঠি তৈরি ও প্রিন্ট করুন</p></header>
 <main class="wrap">
@@ -19,8 +35,16 @@
 আপনার সুস্বাস্থ্য ও সমৃদ্ধি কামনা করছি।</textarea></div></section>
 <section class="card"><h2>৫. চিঠির ডিজাইন ও সম্পাদনা</h2><p class="muted">এডিটরে লেখা নির্বাচন করে MS Word-এর মতো ফরম্যাটিং, অ্যালাইনমেন্ট, বুলেট, নম্বর ও ইনডেন্ট ব্যবহার করুন।
 <div class="card" style="background:#f8fbf9;border:1px solid #d9e5dc;margin:12px 0;padding:14px">
-<strong style="color:#145c43">নিজের ডিজাইন তৈরির টুলবার</strong>
-<div class="toolbar" aria-label="লেখা সম্পাদনা">
+<strong style="color:#145c43">Word-এর মতো ডিজাইন ও Insert টুলবার</strong>
+<div class="word-tabs" role="tablist" aria-label="ডিজাইন টুল">
+  <button class="btn tab-btn active" type="button" data-tab="insertPanel">ইনসার্ট</button>
+  <button class="btn tab-btn alt" type="button" data-tab="formatPanel">ফরম্যাট</button>
+  <button class="btn tab-btn alt" type="button" data-tab="layoutPanel">লেআউট</button>
+</div>
+<div id="insertPanel" class="word-panel active">
+  <div class="word-group-title">লেখা ও অবজেক্ট</div>
+
+</div><div id="formatPanel" class="word-panel"><div class="word-group-title">লেখা সম্পাদনা ও ফন্ট</div><div class="toolbar" aria-label="লেখা সম্পাদনা">
 <button class="btn alt fmt" data-cmd="bold" type="button"><b>B</b> বোল্ড</button><button class="btn alt fmt" data-cmd="italic" type="button"><i>I</i> ইটালিক</button><button class="btn alt fmt" data-cmd="underline" type="button"><u>U</u> আন্ডারলাইন</button>
 <button class="btn alt fmt" data-cmd="justifyLeft" type="button">বামে</button><button class="btn alt fmt" data-cmd="justifyCenter" type="button">মাঝে</button><button class="btn alt fmt" data-cmd="justifyRight" type="button">ডানে</button><button class="btn alt fmt" data-cmd="justifyFull" type="button">Justify</button>
 <button class="btn alt fmt" data-cmd="insertUnorderedList" type="button">• বুলেট</button><button class="btn alt fmt" data-cmd="insertOrderedList" type="button">১. নম্বর</button><button class="btn alt fmt" data-cmd="outdent" type="button">ইনডেন্ট কমান</button><button class="btn alt fmt" data-cmd="indent" type="button">ইনডেন্ট বাড়ান</button>
@@ -39,7 +63,18 @@
 <div class="toolbar">
 <button class="btn alt" id="insertHeading" type="button">শিরোনাম যোগ</button><button class="btn alt" id="insertLine" type="button">লাইন যোগ</button><button class="btn alt" id="insertTable" type="button">টেবিল তৈরি</button><button class="btn alt" id="addRow" type="button">+ সারি যোগ</button><button class="btn alt" id="addColumn" type="button">+ কলাম যোগ</button><button class="btn alt" id="deleteRow" type="button">− সারি মুছুন</button><button class="btn alt" id="deleteColumn" type="button">− কলাম মুছুন</button><button class="btn alt" id="deleteTable" type="button">টেবিল মুছুন</button><button class="btn alt" id="insertBox" type="button">রঙিন বক্স যোগ</button>
 <label class="btn alt" for="logoUpload" style="display:inline-block;cursor:pointer">লোগো উপরে বসান</label><input id="logoUpload" type="file" accept="image/*" class="hidden"><label class="btn alt" for="inlineImage" style="display:inline-block;cursor:pointer">কার্সরে ছবি বসান</label><input id="inlineImage" type="file" accept="image/*" class="hidden">
-
+<button class="btn alt" id="insertShape" type="button">সেপ / Shape যোগ</button>
+<button class="btn alt" id="insertTextBox" type="button">টেক্সট বক্স</button>
+<button class="btn alt" id="insertPageBreak" type="button">পৃষ্ঠা বিরতি</button>
+</div>
+<div class="shape-tools">
+  <label>সেপ নির্বাচন <select id="shapeType" style="width:auto;display:inline-block">
+    <option value="rect">আয়তক্ষেত্র</option><option value="round">গোল কোণা বক্স</option><option value="circle">বৃত্ত</option><option value="line">লাইন</option><option value="arrow">তীর</option><option value="diamond">ডায়মন্ড</option>
+  </select></label>
+  <label>সেপের রং <input id="shapeColor" type="color" value="#c49a45" style="width:42px;display:inline-block;padding:2px"></label>
+  <label>ভিতরের রং <input id="shapeFill" type="color" value="#fff2cc" style="width:42px;display:inline-block;padding:2px"></label>
+  <label>পুরুত্ব <select id="shapeWidth" style="width:auto;display:inline-block"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option></select> px</label>
+</div>
 </div><p class="hint">টিপস: লোগো সব চিঠির একদম উপরে থাকবে। লোগোটি লেখার আলাদা স্তরে থাকে—মাউস চেপে ধরে চিঠির যেকোনো জায়গায় টেনে রাখুন; এতে লেখা সরে যাবে না। বর্ডার দিতে লেখা/অনুচ্ছেদ নির্বাচন করে “নির্বাচিত অংশে বর্ডার” চাপুন। টেবিলের সারি/কলাম যোগ বা মুছতে আগে টেবিলের যে কোনো ঘরে ক্লিক করুন।</p>
 </div>
 <div class="toolbar"><span class="smallnote">Merge Field টেনে এডিটরের মধ্যে ছেড়ে দিন অথবা ক্লিক করুন:</span><button class="btn alt merge" draggable="true" data-v="{নাম}">{নাম}</button><button class="btn alt merge" draggable="true" data-v="{ঠিকানা}">{ঠিকানা}</button><button class="btn alt merge" draggable="true" data-v="{মোবাইল}">{মোবাইল}</button><button class="btn alt merge" draggable="true" data-v="{বকেয়া}">{বকেয়া}</button><button class="btn alt merge" draggable="true" data-v="{তারিখ}">{তারিখ}</button><button class="btn alt merge" draggable="true" data-v="{দোকান}">{দোকান}</button><button class="btn alt merge" draggable="true" data-v="{শিরোনাম}">{শিরোনাম}</button></div>
@@ -210,6 +245,33 @@ function enableLogoDrag(img){
 $('inlineImage').onchange=e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>insertHTML(`<img src="${r.result}" alt="আপলোড করা ছবি" style="max-width:100%;max-height:110px;object-fit:contain;display:inline-block">`);r.readAsDataURL(f);e.target.value='';};
 
 document.querySelectorAll('.merge').forEach(b=>{b.onclick=()=>insertField(b.dataset.v);b.ondragstart=e=>e.dataTransfer.setData('text/plain',b.dataset.v);});$('editor').ondragover=e=>e.preventDefault();$('editor').ondrop=e=>{e.preventDefault();insertField(e.dataTransfer.getData('text/plain'));};function insertField(v){$('editor').focus();document.execCommand('insertText',false,v);}
+
+
+// Word-like Insert ribbon controls.
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b===btn));
+  // Insert tab contains both the object ribbon and the legacy insert controls.
+  const selected=btn.dataset.tab;
+  document.querySelectorAll('.word-panel').forEach(p=>p.classList.remove('active'));
+  if(selected==='insertPanel'){
+    $('insertPanel').classList.add('active');
+    $('insertObjectsPanel').classList.add('active');
+  }else if(selected==='formatPanel') $('formatPanel').classList.add('active');
+  else $('layoutPanel').classList.add('active');
+}));
+$('insertShape').onclick=()=>{
+  const type=$('shapeType').value,color=$('shapeColor').value,fill=$('shapeFill').value,width=$('shapeWidth').value;
+  let cls='inserted-shape',content='আপনার লেখা';
+  if(type==='circle')cls+=' shape-circle';
+  if(type==='round')cls+=' shape-round';
+  if(type==='diamond')cls+=' shape-diamond';
+  if(type==='line'){cls+=' shape-line';content='';}
+  if(type==='arrow'){cls+=' shape-arrow';content='➜';}
+  insertHTML(`<span contenteditable="true" class="${cls}" style="border-color:${color};border-width:${width}px;background:${type==='line'||type==='arrow'?'transparent':fill};color:${color}">${content}</span>&nbsp;`);
+};
+$('insertTextBox').onclick=()=>insertHTML('<div contenteditable="true" class="inserted-textbox">এখানে নিজের লেখা লিখুন</div><p><br></p>');
+$('insertPageBreak').onclick=()=>insertHTML('<div style="page-break-after:always;border-top:1px dashed #999;margin:14px 0;text-align:center;color:#777">পৃষ্ঠা বিরতি</div><p><br></p>');
+
 function templateData(){return {name:$('templateName').value||'নামহীন ডিজাইন',editor:$('editor').innerHTML,editorStyle:$('editor').getAttribute('style')||'',uploadedFontData,uploadedFontFamily,uploadedFontFormat,mt:$('mt').value,mb:$('mb').value,ml:$('ml').value,mr:$('mr').value,shop:$('shop').value,shopInfo:$('shopInfo').value,title:$('title').value,body:$('body').value};}
 function getTemplates(){try{const v=JSON.parse(localStorage.getItem('halkhata_templates_v1')||'[]');return Array.isArray(v)?v:[]}catch{return []}}function refreshTemplates(){let a=getTemplates();$('templates').innerHTML='<option value="">ডিজাইন নির্বাচন</option>'+a.map((x,i)=>`<option value="${i}">${esc(x.name)}</option>`).join('');$('templates').value='';}
 $('saveTemplate').onclick=()=>{let a=getTemplates(),d=templateData();if(!d.name.trim()){alert('ডিজাইনের নাম দিন।');return;}let i=a.findIndex(x=>x.name===d.name);if(i>=0)a[i]=d;else a.push(d);try{localStorage.setItem('halkhata_templates_v1',JSON.stringify(a));refreshTemplates();$('designStatus').textContent='ডিজাইন সংরক্ষিত হয়েছে।';}catch(e){alert('স্টোরেজ পূর্ণ। কিছু পুরোনো ডিজাইন মুছে আবার চেষ্টা করুন।');}};
