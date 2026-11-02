@@ -132,8 +132,14 @@
 </div>
 <div>
 <div class="photo-panel"><h3>AI Background Remover</h3>
-<button class="btn" id="aiRemoveBg" type="button">✨ AI দিয়ে ব্যাকগ্রাউন্ড রিমুভ</button>
-<p class="photo-hint">প্রথমবার ব্যবহারে AI মডেল ইন্টারনেট থেকে লোড হবে (বড় ফাইল ডাউনলোড হতে পারে)। ফলাফল স্বচ্ছ PNG হিসেবে তৈরি হবে।</p>
+<div class="photo-control"><label for="photoAiQuality">AI মডেলের মান</label>
+<select id="photoAiQuality">
+<option value="large" selected>সর্বোচ্চ মান — Large (প্রান্ত আরও ভালো)</option>
+<option value="medium">সুষম — Medium (তুলনামূলক দ্রুত)</option>
+<option value="small">দ্রুত — Small (প্রান্তে ত্রুটি হতে পারে)</option>
+</select></div>
+<button class="btn" id="aiRemoveBg" type="button">✨ উন্নত AI দিয়ে ব্যাকগ্রাউন্ড রিমুভ</button>
+<p class="photo-hint">ভালো ফলাফলের জন্য Large মডেল ব্যবহার করুন। প্রথমবার প্রায় ৮০ MB মডেল ডাউনলোড হতে পারে। ছবি স্বচ্ছ PNG হিসেবে তৈরি হবে।</p>
 </div>
 <div class="photo-panel"><h3>Background পরিবর্তন</h3>
 <div class="photo-control"><label for="photoBgColor">ব্যাকগ্রাউন্ডের রং</label><input id="photoBgColor" type="color" value="#ffffff"></div>
@@ -447,14 +453,40 @@ $('photoReset').onclick=()=>{if(!photoOriginal)return;photoRotation=0;photoFlipH
 $('photoDownload').onclick=()=>{if(!photoOriginal)return alert('আগে একটি ছবি খুলুন।');const type=$('photoFormat').value;photoCanvas.toBlob(blob=>{if(!blob)return alert('ছবি এক্সপোর্ট করা যায়নি।');const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='edited-photo.'+(type==='image/jpeg'?'jpg':type==='image/webp'?'webp':'png');a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1500);},type,.94);};
 $('aiRemoveBg').onclick=async()=>{
  if(!photoOriginalFile)return alert('প্রথমে একটি ছবি আপলোড করুন।');
- const btn=$('aiRemoveBg');btn.disabled=true;btn.textContent='AI মডেল লোড হচ্ছে…';photoSay('AI ব্যাকগ্রাউন্ড রিমুভের মডেল লোড হচ্ছে। ইন্টারনেট সংযোগ চালু রাখুন।');
+ const btn=$('aiRemoveBg');
+ const quality=$('photoAiQuality').value||'large';
+ const qualityName={large:'সর্বোচ্চ মানের Large',medium:'Medium',small:'দ্রুত Small'}[quality];
+ btn.disabled=true;
+ btn.textContent='AI মডেল প্রস্তুত হচ্ছে…';
+ photoSay(`${qualityName} AI মডেল লোড হচ্ছে। প্রথমবার ডাউনলোডে সময় লাগতে পারে—এই ট্যাব বন্ধ করবেন না।`);
  try{
   const mod=await import('https://esm.sh/@imgly/background-removal@1.5.5');
-  btn.textContent='AI দিয়ে ব্যাকগ্রাউন্ড রিমুভ হচ্ছে…';
-  const blob=await mod.removeBackground(photoOriginalFile,{model:'small',output:{format:'image/png'}});
-  photoRemovedBlob=blob;photoLoadImage(blob,im=>{photoOriginal=im;$('photoWidth').value=im.naturalWidth;$('photoHeight').value=im.naturalHeight;photoBgMode='none';photoRender();photoSay('AI দিয়ে ব্যাকগ্রাউন্ড রিমুভ সম্পন্ন হয়েছে। এখন Background panel থেকে নতুন ব্যাকগ্রাউন্ড দিন।');});
- }catch(err){console.error(err);photoSay('AI ব্যাকগ্রাউন্ড রিমুভ করা যায়নি। ইন্টারনেট/ব্রাউজার সাপোর্ট পরীক্ষা করে আবার চেষ্টা করুন।');alert('AI Background Remover লোড বা চালাতে সমস্যা হয়েছে। প্রথমবার মডেল ডাউনলোডের জন্য স্থিতিশীল ইন্টারনেট দরকার।');}
- finally{btn.disabled=false;btn.textContent='✨ AI দিয়ে ব্যাকগ্রাউন্ড রিমুভ';}
+  btn.textContent='ছবির বিষয়বস্তু শনাক্ত হচ্ছে…';
+  const blob=await mod.removeBackground(photoOriginalFile,{
+   model:quality,
+   output:{format:'image/png'},
+   progress:(key,current,total)=>{
+    const pct=total>0?Math.round(current/total*100):0;
+    photoSay(`AI মডেল/ছবি প্রসেস হচ্ছে: ${pct}% — ${qualityName}`);
+   }
+  });
+  photoRemovedBlob=blob;
+  photoLoadImage(blob,im=>{
+   photoOriginal=im;
+   $('photoWidth').value=im.naturalWidth;
+   $('photoHeight').value=im.naturalHeight;
+   photoBgMode='none';
+   photoRender();
+   photoSay(`ব্যাকগ্রাউন্ড রিমুভ সম্পন্ন (${qualityName})। চুল, টুপি ও কাঁধের প্রান্ত পরীক্ষা করুন; প্রয়োজন হলে Medium/Large মডেল বদলে মূল ছবি থেকে আবার চেষ্টা করুন।`);
+  });
+ }catch(err){
+  console.error(err);
+  photoSay('AI ব্যাকগ্রাউন্ড রিমুভ করা যায়নি। ইন্টারনেট, WebAssembly/WebGL সাপোর্ট এবং মেমোরি পরীক্ষা করে আবার চেষ্টা করুন।');
+  alert('AI Background Remover চালাতে সমস্যা হয়েছে। স্থিতিশীল ইন্টারনেট ব্যবহার করুন। Large মডেল চালাতে বেশি RAM লাগতে পারে; সমস্যা হলে Medium নির্বাচন করুন।');
+ }finally{
+  btn.disabled=false;
+  btn.textContent='✨ উন্নত AI দিয়ে ব্যাকগ্রাউন্ড রিমুভ';
+ }
 };
 
 </script></body></html>
