@@ -43,7 +43,21 @@
 </div>
 <div id="insertPanel" class="word-panel active">
   <div class="word-group-title">লেখা ও অবজেক্ট</div>
-
+  <div class="toolbar">
+<button class="btn alt" id="insertHeading" type="button">শিরোনাম যোগ</button><button class="btn alt" id="insertLine" type="button">লাইন যোগ</button><button class="btn alt" id="insertTable" type="button">টেবিল তৈরি</button><button class="btn alt" id="addRow" type="button">+ সারি যোগ</button><button class="btn alt" id="addColumn" type="button">+ কলাম যোগ</button><button class="btn alt" id="deleteRow" type="button">− সারি মুছুন</button><button class="btn alt" id="deleteColumn" type="button">− কলাম মুছুন</button><button class="btn alt" id="deleteTable" type="button">টেবিল মুছুন</button><button class="btn alt" id="insertBox" type="button">রঙিন বক্স যোগ</button>
+<label class="btn alt" for="logoUpload" style="display:inline-block;cursor:pointer">লোগো উপরে বসান</label><input id="logoUpload" type="file" accept="image/*" class="hidden"><label class="btn alt" for="inlineImage" style="display:inline-block;cursor:pointer">কার্সরে ছবি বসান</label><input id="inlineImage" type="file" accept="image/*" class="hidden">
+<button class="btn alt" id="insertShape" type="button">সেপ / Shape যোগ</button>
+<button class="btn alt" id="insertTextBox" type="button">টেক্সট বক্স</button>
+<button class="btn alt" id="insertPageBreak" type="button">পৃষ্ঠা বিরতি</button>
+</div>
+<div class="shape-tools">
+  <label>সেপ নির্বাচন <select id="shapeType" style="width:auto;display:inline-block">
+    <option value="rect">আয়তক্ষেত্র</option><option value="round">গোল কোণা বক্স</option><option value="circle">বৃত্ত</option><option value="line">লাইন</option><option value="arrow">তীর</option><option value="diamond">ডায়মন্ড</option>
+  </select></label>
+  <label>সেপের রং <input id="shapeColor" type="color" value="#c49a45" style="width:42px;display:inline-block;padding:2px"></label>
+  <label>ভিতরের রং <input id="shapeFill" type="color" value="#fff2cc" style="width:42px;display:inline-block;padding:2px"></label>
+  <label>পুরুত্ব <select id="shapeWidth" style="width:auto;display:inline-block"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option></select> px</label>
+</div>
 </div><div id="formatPanel" class="word-panel"><div class="word-group-title">লেখা সম্পাদনা ও ফন্ট</div><div class="toolbar" aria-label="লেখা সম্পাদনা">
 <button class="btn alt fmt" data-cmd="bold" type="button"><b>B</b> বোল্ড</button><button class="btn alt fmt" data-cmd="italic" type="button"><i>I</i> ইটালিক</button><button class="btn alt fmt" data-cmd="underline" type="button"><u>U</u> আন্ডারলাইন</button>
 <button class="btn alt fmt" data-cmd="justifyLeft" type="button">বামে</button><button class="btn alt fmt" data-cmd="justifyCenter" type="button">মাঝে</button><button class="btn alt fmt" data-cmd="justifyRight" type="button">ডানে</button><button class="btn alt fmt" data-cmd="justifyFull" type="button">Justify</button>
@@ -60,28 +74,19 @@
 <label class="smallnote">লেখার পেছনের রং <input id="highlightColor" type="color" value="#fff2cc" style="width:42px;padding:2px;vertical-align:middle"></label>
 <label class="smallnote">ক্যানভাসের রং <input id="canvasColor" type="color" value="#ffffff" style="width:42px;padding:2px;vertical-align:middle"></label><label class="smallnote">বর্ডার রং <input id="borderColor" type="color" value="#c49a45" style="width:42px;padding:2px;vertical-align:middle"></label><label class="smallnote">বর্ডার পুরুত্ব <select id="borderWidth" style="width:65px;display:inline-block"><option value="1">১ px</option><option value="2" selected>২ px</option><option value="3">৩ px</option><option value="4">৪ px</option><option value="5">৫ px</option></select></label><button class="btn alt" id="addBorder" type="button">নির্বাচিত অংশে বর্ডার</button><button class="btn alt" id="removeBorder" type="button">বর্ডার সরান</button>
 </div>
-<div class="toolbar">
-<button class="btn alt" id="insertHeading" type="button">শিরোনাম যোগ</button><button class="btn alt" id="insertLine" type="button">লাইন যোগ</button><button class="btn alt" id="insertTable" type="button">টেবিল তৈরি</button><button class="btn alt" id="addRow" type="button">+ সারি যোগ</button><button class="btn alt" id="addColumn" type="button">+ কলাম যোগ</button><button class="btn alt" id="deleteRow" type="button">− সারি মুছুন</button><button class="btn alt" id="deleteColumn" type="button">− কলাম মুছুন</button><button class="btn alt" id="deleteTable" type="button">টেবিল মুছুন</button><button class="btn alt" id="insertBox" type="button">রঙিন বক্স যোগ</button>
-<label class="btn alt" for="logoUpload" style="display:inline-block;cursor:pointer">লোগো উপরে বসান</label><input id="logoUpload" type="file" accept="image/*" class="hidden"><label class="btn alt" for="inlineImage" style="display:inline-block;cursor:pointer">কার্সরে ছবি বসান</label><input id="inlineImage" type="file" accept="image/*" class="hidden">
-<button class="btn alt" id="insertShape" type="button">সেপ / Shape যোগ</button>
-<button class="btn alt" id="insertTextBox" type="button">টেক্সট বক্স</button>
-<button class="btn alt" id="insertPageBreak" type="button">পৃষ্ঠা বিরতি</button>
+
+</div><div id="layoutPanel" class="word-panel">
+<div class="word-group-title">পৃষ্ঠা ও প্রিন্ট লেআউট</div>
+<p class="status">প্রিন্ট ফরম্যাট: A4 Portrait (210 × 297 mm) • প্রতি পাতায় ২টি চিঠি • মাঝখানে কাটার দাগ</p>
+<div class="grid" style="margin-top:14px"><div class="field"><label>উপরের মার্জিন (mm)</label><input id="mt" type="number" min="0" max="30" value="8"></div><div class="field"><label>নিচের মার্জিন (mm)</label><input id="mb" type="number" min="0" max="30" value="8"></div><div class="field"><label>বাম মার্জিন (mm)</label><input id="ml" type="number" min="0" max="30" value="9"></div><div class="field"><label>ডান মার্জিন (mm)</label><input id="mr" type="number" min="0" max="30" value="9"></div></div>
 </div>
-<div class="shape-tools">
-  <label>সেপ নির্বাচন <select id="shapeType" style="width:auto;display:inline-block">
-    <option value="rect">আয়তক্ষেত্র</option><option value="round">গোল কোণা বক্স</option><option value="circle">বৃত্ত</option><option value="line">লাইন</option><option value="arrow">তীর</option><option value="diamond">ডায়মন্ড</option>
-  </select></label>
-  <label>সেপের রং <input id="shapeColor" type="color" value="#c49a45" style="width:42px;display:inline-block;padding:2px"></label>
-  <label>ভিতরের রং <input id="shapeFill" type="color" value="#fff2cc" style="width:42px;display:inline-block;padding:2px"></label>
-  <label>পুরুত্ব <select id="shapeWidth" style="width:auto;display:inline-block"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option></select> px</label>
-</div>
-</div><p class="hint">টিপস: লোগো সব চিঠির একদম উপরে থাকবে। লোগোটি লেখার আলাদা স্তরে থাকে—মাউস চেপে ধরে চিঠির যেকোনো জায়গায় টেনে রাখুন; এতে লেখা সরে যাবে না। বর্ডার দিতে লেখা/অনুচ্ছেদ নির্বাচন করে “নির্বাচিত অংশে বর্ডার” চাপুন। টেবিলের সারি/কলাম যোগ বা মুছতে আগে টেবিলের যে কোনো ঘরে ক্লিক করুন।</p>
+<p class="hint">টিপস: লোগো সব চিঠির একদম উপরে থাকবে। লোগোটি লেখার আলাদা স্তরে থাকে—মাউস চেপে ধরে চিঠির যেকোনো জায়গায় টেনে রাখুন; এতে লেখা সরে যাবে না। বর্ডার দিতে লেখা/অনুচ্ছেদ নির্বাচন করে “নির্বাচিত অংশে বর্ডার” চাপুন। টেবিলের সারি/কলাম যোগ বা মুছতে আগে টেবিলের যে কোনো ঘরে ক্লিক করুন।</p>
 </div>
 <div class="toolbar"><span class="smallnote">Merge Field টেনে এডিটরের মধ্যে ছেড়ে দিন অথবা ক্লিক করুন:</span><button class="btn alt merge" draggable="true" data-v="{নাম}">{নাম}</button><button class="btn alt merge" draggable="true" data-v="{ঠিকানা}">{ঠিকানা}</button><button class="btn alt merge" draggable="true" data-v="{মোবাইল}">{মোবাইল}</button><button class="btn alt merge" draggable="true" data-v="{বকেয়া}">{বকেয়া}</button><button class="btn alt merge" draggable="true" data-v="{তারিখ}">{তারিখ}</button><button class="btn alt merge" draggable="true" data-v="{দোকান}">{দোকান}</button><button class="btn alt merge" draggable="true" data-v="{শিরোনাম}">{শিরোনাম}</button></div>
 <div class="field"><label>ডিজাইন ক্যানভাস — সরাসরি সম্পাদনা করুন</label><div id="editor" class="editor" contenteditable="true" spellcheck="false">
 <!-- খালি ক্যানভাস: ব্যবহারকারী নিজের ডিজাইন তৈরি করবেন -->
 </div></div></div></div>
-<p class="status">প্রিন্ট ফরম্যাট: A4 Portrait (210 × 297 mm) • প্রতি পাতায় ২টি চিঠি • মাঝখানে কাটার দাগ</p><div class="grid" style="margin-top:14px"><div class="field"><label>উপরের মার্জিন (mm)</label><input id="mt" type="number" min="0" max="30" value="8"></div><div class="field"><label>নিচের মার্জিন (mm)</label><input id="mb" type="number" min="0" max="30" value="8"></div><div class="field"><label>বাম মার্জিন (mm)</label><input id="ml" type="number" min="0" max="30" value="9"></div><div class="field"><label>ডান মার্জিন (mm)</label><input id="mr" type="number" min="0" max="30" value="9"></div></div>
+
 <div class="template-row" style="margin-top:14px"><div class="field"><label>ডিজাইনের নাম</label><input id="templateName" placeholder="যেমন: লাল-সোনালি হালখাতা"></div><div class="field"><label>সংরক্ষিত ডিজাইন</label><select id="templates"><option value="">ডিজাইন নির্বাচন</option></select></div></div><div class="actions"><button class="btn" id="saveTemplate">ডিজাইন সংরক্ষণ</button><button class="btn alt" id="loadTemplate">ডিজাইন খুলুন</button><button class="btn alt" id="deleteTemplate">ডিজাইন মুছুন</button></div><p class="hint" id="designStatus">খালি ক্যানভাসে নিজের ডিজাইন তৈরি করুন। আপলোড করা ফন্টসহ ডিজাইন এই ব্রাউজারে সংরক্ষিত হবে।</p></section>
 <section class="card"><h2>৬. Preview ও প্রিন্ট</h2><div class="actions"><button class="btn alt" id="previewBtn">সব নির্বাচিত চিঠি Preview (প্রতি A4-এ ২টি)</button><button class="btn" id="printBtn">সব নির্বাচিত চিঠি A4-এ প্রিন্ট / PDF</button></div><div id="preview" class="preview" style="margin-top:12px">Preview দেখতে বোতাম চাপুন।</div></section>
 <div class="foot">হালখাতা Mail Merge • আপনার তথ্য এই ব্রাউজারেই প্রক্রিয়াকরণ হয়</div>
@@ -255,7 +260,6 @@ document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',
   document.querySelectorAll('.word-panel').forEach(p=>p.classList.remove('active'));
   if(selected==='insertPanel'){
     $('insertPanel').classList.add('active');
-    $('insertObjectsPanel').classList.add('active');
   }else if(selected==='formatPanel') $('formatPanel').classList.add('active');
   else $('layoutPanel').classList.add('active');
 }));
